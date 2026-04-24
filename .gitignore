@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Outputs generated at runtime
+output/
+
+# Local data files (often sensitive / large)
+data/*.xlsx
+data/*.csv
+
