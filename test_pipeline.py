@@ -2,7 +2,6 @@ import os
 
 from config import METADATA_FILENAME, OUTPUT_DIR, VECTORS_FILENAME
 from loaders.golden_dataset import load as load_golden
-from loaders.search_terms import load as load_search_terms
 
 
 EXPECTED_METADATA_COLUMNS = [
@@ -23,7 +22,7 @@ def _read_lines(path: str) -> list[str]:
 
 
 def test():
-    os.environ["EMBEDDER"] = "mock"
+    os.environ["EMBEDDER"] = "sentence_transformer"
 
     import main  # noqa: PLC0415
 
@@ -50,9 +49,7 @@ def test():
     assert len(set(dims)) == 1, f"Inconsistent vector dimensions found: {sorted(set(dims))}"
 
     golden_items = load_golden()
-    search_items = load_search_terms()
-    assert len(golden_items) >= 10, f"Expected >=10 golden items, got {len(golden_items)}"
-    assert len(search_items) >= 10, f"Expected >=10 search items, got {len(search_items)}"
+    assert len(golden_items) >= 10, f"Expected >=10 taxonomy items, got {len(golden_items)}"
 
     print("[test] OK")
 

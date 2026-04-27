@@ -3,7 +3,6 @@ import sys
 from embedders import get_embedder
 from exporter import tf_projector
 from loaders.golden_dataset import load as load_golden
-from loaders.search_terms import load as load_search_terms
 from visualizer import scatter_plot
 
 
@@ -12,10 +11,8 @@ def main():
 
     print("[1/4] Loading data...")
     golden_items = load_golden()
-    search_items = load_search_terms()
-    all_items = golden_items + search_items
-    print(f"  Golden dataset items : {len(golden_items)}")
-    print(f"  Search term items    : {len(search_items)}")
+    all_items = golden_items
+    print(f"  Taxonomy items       : {len(golden_items)}")
     print(f"  Total items          : {len(all_items)}\n")
 
     if len(all_items) == 0:

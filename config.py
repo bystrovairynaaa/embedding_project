@@ -2,11 +2,9 @@ import os
 from pathlib import Path
 
 # ── Embedding model selection ─────────────────────────────────────────────────
-# Options: "mock" | "sentence_transformer" | "azure_openai"
-EMBEDDER = os.getenv("EMBEDDER", "mock")
-
-# ── Mock embedder settings ────────────────────────────────────────────────────
-MOCK_EMBEDDING_DIM = 384  # Must match sentence-transformer dim for easy switching
+# Options: "sentence_transformer" | "azure_openai"
+# Default is the recommended local/offline embedder.
+EMBEDDER = os.getenv("EMBEDDER", "sentence_transformer")
 
 # ── Sentence Transformer settings ─────────────────────────────────────────────
 SENTENCE_TRANSFORMER_MODEL = "all-MiniLM-L6-v2"
@@ -23,7 +21,10 @@ AZURE_OPENAI_BATCH_SIZE = 16  # items per API call
 # Keep paths stable regardless of the current working directory.
 PROJECT_DIR = Path(__file__).resolve().parent
 DATA_DIR = PROJECT_DIR / "data"
-GOLDEN_DATASET_PATH = str(DATA_DIR / "Golden_data_set_example.csv")
+# Main input file (taxonomy / golden dataset)
+GOLDEN_DATASET_PATH = str(DATA_DIR / "kbs_example_taxonomy.csv")
+
+# Optional secondary input (unused by default pipeline now)
 SEARCH_TERMS_PATH = str(DATA_DIR / "search_terms_-_Jan_-_Mar.csv")
 
 # ── Data filtering ───────────────────────────────────────────────────────────

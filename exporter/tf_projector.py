@@ -28,14 +28,16 @@ def export(items: list[dict], vectors: list[list[float]]) -> tuple[str, str]:
     metadata_path = os.path.join(OUTPUT_DIR, METADATA_FILENAME)
 
     with open(vectors_path, "w", encoding="utf-8") as f:
-        for vec in vectors:
-            f.write("\t".join(f"{v:.6f}" for v in vec) + "\n")
+        # Write without a trailing blank line (some tools count it as an extra row).
+        lines = ["\t".join(f"{v:.6f}" for v in vec) for vec in vectors]
+        f.write("\n".join(lines))
 
     with open(metadata_path, "w", encoding="utf-8") as f:
-        f.write("\t".join(METADATA_COLUMNS) + "\n")
+        lines = ["\t".join(METADATA_COLUMNS)]
         for item in items:
             row = [str(item.get(col, "") or "") for col in METADATA_COLUMNS]
-            f.write("\t".join(row) + "\n")
+            lines.append("\t".join(row))
+        f.write("\n".join(lines))
 
     print(f"[export] Written {len(items)} items")
     print(f"  vectors  -> {vectors_path}")

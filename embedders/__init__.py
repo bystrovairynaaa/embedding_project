@@ -2,10 +2,6 @@ from config import EMBEDDER
 
 
 def get_embedder():
-    if EMBEDDER == "mock":
-        from embedders.mock_embedder import MockEmbedder
-
-        return MockEmbedder()
     if EMBEDDER == "sentence_transformer":
         from embedders.sentence_transformer_embedder import SentenceTransformerEmbedder
 
@@ -15,7 +11,7 @@ def get_embedder():
 
         return AzureOpenAIEmbedder()
     raise ValueError(
-        f"Unknown EMBEDDER value: '{EMBEDDER}'. Must be mock | sentence_transformer | azure_openai"
+        f"Unknown EMBEDDER value: '{EMBEDDER}'. Must be sentence_transformer | azure_openai"
     )
 
 
