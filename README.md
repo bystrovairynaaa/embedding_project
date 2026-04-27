@@ -12,7 +12,7 @@ pip install umap-learn
 All configuration is in `config.py`.
 
 - Main input file:
-  - `GOLDEN_DATASET_PATH` (defaults to `embedding_projector/data/kbs_example_taxonomy.csv`)
+  - `GOLDEN_DATASET_PATH` (defaults to `embedding_projector/data/kbs_example_taxonomy.csv` - `https://jira-pg.atlassian.net/wiki/spaces/DPS/pages/13657473494/Golden+Dataset+Example+TBD`)
 
 - Embedder:
   - Default is local/offline `sentence_transformer`
