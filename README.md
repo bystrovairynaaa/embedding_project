@@ -1,11 +1,9 @@
 #### 1. Overview
-This tool loads text from an Excel golden dataset and a CSV of user search queries, generates embeddings, exports TensorFlow Projector-compatible TSV files, and produces a local 2D scatter plot preview.
+This tool loads text terms from a single taxonomy CSV, generates local/offline embeddings with `sentence-transformers` (`all-MiniLM-L6-v2`), exports TensorFlow Projector-compatible TSV files, and produces a local 2D scatter plot preview.
 
 #### 2. Setup
 ```bash
 pip install -r requirements.txt
-# For local embeddings:
-pip install sentence-transformers
 # For UMAP (optional):
 pip install umap-learn
 ```
@@ -13,10 +11,12 @@ pip install umap-learn
 #### 3. Configuration
 All configuration is in `config.py`.
 
-- Change `EMBEDDER` via environment variable `EMBEDDER`:
-  - `mock` (default)
-  - `sentence_transformer`
-  - `azure_openai`
+- Main input file:
+  - `GOLDEN_DATASET_PATH` (defaults to `embedding_projector/data/kbs_example_taxonomy.csv`)
+
+- Embedder:
+  - Default is local/offline `sentence_transformer`
+  - Optional override: `EMBEDDER=azure_openai`
 
 - Azure OpenAI environment variables:
 ```bash
@@ -49,9 +49,6 @@ Step 5: Click the "Color by" dropdown and choose:
 Step 6: Use T-SNE or UMAP in the left panel for better cluster separation than PCA
 ```
 
-#### 6. Switching to real embeddings later
-Change `EMBEDDER = "mock"` to `"sentence_transformer"` in config.py and re-run.
-
-#### 7. Adding new data sources
+#### 6. Adding new data sources
 Create a new file in `loaders/`, implement a `load()` function that returns `list[dict]` with the same keys as the existing loaders, and add a call in `main.py`.
 
