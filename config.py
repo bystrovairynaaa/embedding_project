@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 # ── Embedding model selection ─────────────────────────────────────────────────
 # Options: "mock" | "sentence_transformer" | "azure_openai"
@@ -19,8 +20,11 @@ AZURE_OPENAI_BATCH_SIZE = 16  # items per API call
 
 # ── Input data paths ─────────────────────────────────────────────────────────
 # Can be .xlsx (original) or .csv (taxonomy export)
-GOLDEN_DATASET_PATH = "data/Golden_data_set_example.csv"
-SEARCH_TERMS_PATH = "data/search_terms_-_Jan_-_Mar.csv"
+# Keep paths stable regardless of the current working directory.
+PROJECT_DIR = Path(__file__).resolve().parent
+DATA_DIR = PROJECT_DIR / "data"
+GOLDEN_DATASET_PATH = str(DATA_DIR / "Golden_data_set_example.csv")
+SEARCH_TERMS_PATH = str(DATA_DIR / "search_terms_-_Jan_-_Mar.csv")
 
 # ── Data filtering ───────────────────────────────────────────────────────────
 TOP_N_SEARCH_TERMS = 100  # Keep only top N search terms by frequency
